@@ -42,10 +42,17 @@ namespace Infrastructure.Data
             return await ApplySpecfication(spec).ToListAsync();
         }
    
+
+ public async Task<int> CountAsync(ISpecification<T> spec)  //Number of records
+        {
+           return await ApplySpecfication(spec).CountAsync();
+        }
+
    private IQueryable<T> ApplySpecfication(ISpecification<T> spec)
    {
     return SpecificationEvaluator<T>.GetQuery(context.Set<T>().AsQueryable(),spec);
    }
-   
+
+       
     }
 }
