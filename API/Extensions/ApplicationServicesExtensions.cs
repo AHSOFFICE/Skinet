@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using API.Errors;
 using Core.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
@@ -32,6 +33,7 @@ Services.AddSingleton<IConnectionMultiplexer>(c=>
 });
 Services.AddScoped<IBasketRepository,BasketRepository>();
 Services.AddScoped<IProductRepository,ProductRepository>();
+Services.AddScoped<ITokenService,TokenService>();
 Services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));
 Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 Services.Configure<ApiBehaviorOptions>(Options =>
