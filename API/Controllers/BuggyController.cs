@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Errors;
 using Infrastructure.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -16,55 +17,67 @@ namespace API.Controllers
             _context = context;
         }
 
-       
-    
-    
-     [HttpGet("notfound")]
-       
-    public ActionResult GetNotFoundRequest()
-    {
-    var thing= _context.product.Find(42);
-    
-    if(thing==null)
-    {
 
 
-    return NotFound(new ApiResponse(404));
-
-    }   
-    
-    return Ok();
-        
-    }
-
-
-[HttpGet("servererror")]
-    public ActionResult GetServerError()
-    {
-
-        var thing= _context.product.Find(42);
-        var thingtoReturn = thing.ToString();
-    return Ok();
-        
-    }
-    
-    [HttpGet("badrequest")]
-    public ActionResult Getbadrequest()
-    {
-
-    return BadRequest(new ApiResponse(400));
-        
-    }
-    
+        [HttpGet("testauth")]
+        //[Authorize]
+        public ActionResult<string> GetSecretText()
+        {
+            return "secret stuff";
+        }
 
 
- [HttpGet("badrequest/{id}")]
-    public ActionResult GetNotFoundRequest(int id)
-    {
 
-    return BadRequest();
-        
-    }
+
+
+
+
+        [HttpGet("notfound")]
+
+        public ActionResult GetNotFoundRequest()
+        {
+            var thing = _context.product.Find(42);
+
+            if (thing == null)
+            {
+
+
+                return NotFound(new ApiResponse(404));
+
+            }
+
+            return Ok();
+
+        }
+
+
+        [HttpGet("servererror")]
+        public ActionResult GetServerError()
+        {
+
+            var thing = _context.product.Find(42);
+            var thingtoReturn = thing.ToString();
+            return Ok();
+
+        }
+
+        [HttpGet("badrequest")]
+        public ActionResult Getbadrequest()
+        {
+
+            return BadRequest(new ApiResponse(400));
+
+        }
+
+
+
+        [HttpGet("badrequest/{id}")]
+        public ActionResult GetNotFoundRequest(int id)
+        {
+
+            return BadRequest();
+
+        }
 
 
 

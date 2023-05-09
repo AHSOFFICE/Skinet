@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using API.Errors;
 using Core.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
@@ -16,9 +17,7 @@ namespace API.Extensions
         public static IServiceCollection AddApplicationServices(this IServiceCollection Services,
         IConfiguration config)
         {
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-Services.AddEndpointsApiExplorer();
-Services.AddSwaggerGen();
+
 Services.AddDbContext<StoreContext>(opt=>
 {
 opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
@@ -32,6 +31,7 @@ Services.AddSingleton<IConnectionMultiplexer>(c=>
 });
 Services.AddScoped<IBasketRepository,BasketRepository>();
 Services.AddScoped<IProductRepository,ProductRepository>();
+Services.AddScoped<ITokenService,TokenService>();
 Services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));
 Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 Services.Configure<ApiBehaviorOptions>(Options =>
