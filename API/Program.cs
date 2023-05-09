@@ -8,34 +8,53 @@ using Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddSwaggerDocumentation();
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 647186f6de55babfb6ca38d31d673b920360f367
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-app.UseStatusCodePagesWithReExecute("/errors/{0}");
-
 app.UseMiddleware<ExceptionMiddleware>();
+<<<<<<< HEAD
 
+=======
+app.UseStatusCodePagesWithReExecute("/errors/{0}");
+app.UseSwaggerDocumentation();
+>>>>>>> 647186f6de55babfb6ca38d31d673b920360f367
 
 
 app.UseSwaggerDocumentation();
 app.UseStaticFiles();
+
+
+
+app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider= new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(),"Content")), RequestPath="/Content"
+});
+
 app.UseCors("CorsPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapFallbackToController("Index","Fallback");
 
 
 using var scope=app.Services.CreateScope();

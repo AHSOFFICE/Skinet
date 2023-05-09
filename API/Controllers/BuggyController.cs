@@ -17,6 +17,32 @@ namespace API.Controllers
             _context = context;
         }
 
+<<<<<<< HEAD
+=======
+       
+    
+    [HttpGet("testauth")]
+    //[Authorize]
+    public ActionResult<string>GetSecretText()
+    {
+        return "secret stuff";
+    }
+
+
+
+
+
+
+
+     [HttpGet("notfound")]
+       
+    public ActionResult GetNotFoundRequest()
+    {
+    var thing= _context.product.Find(42);
+    
+    if(thing==null)
+    {
+>>>>>>> 647186f6de55babfb6ca38d31d673b920360f367
 
 
         [HttpGet("testauth")]
